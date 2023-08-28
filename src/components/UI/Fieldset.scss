@@ -18,10 +18,6 @@ fieldset {
     border: 2px solid base.$light_gray;
     position: relative;
     -webkit-tap-highlight-color: transparent !important;
-    &:has(input:checked) {
-      background: base.$magnolia;
-      border-color: base.hslac(base.$purplish_blue, 60%);
-    }
     @media (hover: hover) {
       /*targets only devices that can hover*/
       &:hover {

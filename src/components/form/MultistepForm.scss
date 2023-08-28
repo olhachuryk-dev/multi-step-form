@@ -25,7 +25,7 @@ form{
   border-top: 3px solid  base.$magnolia;
 }
 
-@media (width > 600px) {
+@media (min-width: base.$media-mobile-breackpoint-highest) {
   .buttons_container {
     position: static;
     margin: 0 5%;

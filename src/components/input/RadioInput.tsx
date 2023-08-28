@@ -5,6 +5,7 @@ import useSetDefaultChoice from "../../hooks/useSetDefaultChoice";
 import Fieldset from "../UI/Fieldset";
 import ValidationMsg from "../UI/ValidationMsg";
 import "./RadioInput.scss";
+import { useState } from "react";
 
 //for  readiobuttons
 
@@ -12,17 +13,29 @@ const RadioInput = (props: IField) => {
   const {
     register,
     formState: { errors },
+    getValues,
   } = useFormContext();
 
-  useSetDefaultChoice(props.id, props.options?.[0].label || "");
+  const defaults = useSetDefaultChoice(
+    props.id,
+    props.options?.[0].label || ""
+  );
 
+  const [checkedInputs, setCheckedInputs] = useState<string>(
+    getValues(props.id) || defaults.getValues()
+  );
   return (
     <>
       <Fieldset label={props.label}>
         <>
           {props.options?.map((option) => {
             return (
-              <div key={option.label} className="radio_option">
+              <div
+                key={option.label}
+                className={`radio_option ${
+                  checkedInputs.includes(option.label) ? "input_checked" : ""
+                }`}
+              >
                 {option.icon ? (
                   <img src={option.icon} alt={option.label} />
                 ) : (
@@ -37,6 +50,7 @@ const RadioInput = (props: IField) => {
                     type="radio"
                     id={option.label}
                     value={option.label}
+                    onClick={() => setCheckedInputs(option.label)}
                     {...register(props.id, {
                       required: props.validation?.required,
                       disabled: props.validation?.disabled,

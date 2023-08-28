@@ -6,7 +6,7 @@ type Props = {
   steps: IStep[];
   currentStepIndex: number;
   goTo: (index: number) => void;
-}
+};
 
 const StepsTracker = (props: Props) => {
   const { steps, currentStepIndex, goTo } = props;
@@ -23,12 +23,15 @@ const StepsTracker = (props: Props) => {
   return (
     <div className="tracker_container">
       {steps.map((step, index) => (
-        <button 
+        <button
+          type="button"
           disabled={index > enabledStepLastIndex}
           onClick={() => stepClickHandler(index)}
-          className={`tracker_button ${currentStepIndex === index ? "active" : ""}`}
+          className={`tracker_button ${
+            currentStepIndex === index ? "active" : ""
+          }`}
           key={step.id}
-          aria-hidden={true}
+          aria-hidden="true"
         >
           {step.order}
         </button>

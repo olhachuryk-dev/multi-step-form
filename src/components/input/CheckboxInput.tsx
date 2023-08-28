@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { IField } from "../../store/formTypes";
 import { useFormContext } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -11,20 +12,36 @@ const CheckboxInput = (props: IField) => {
   const {
     register,
     formState: { errors },
+    getValues,
   } = useFormContext();
+  const [checkedInputs, setCheckedInputs] = useState<string[]>(
+    getValues(props.id) || [""]
+  );
   return (
     <>
       <Fieldset label={props.label}>
         <>
           {props.options?.map((option) => {
             return (
-              <div key={option.label} className="check_option">
+              <div
+                key={option.label}
+                className={`check_option ${
+                  checkedInputs.includes(option.label) ? "input_checked" : ""
+                }`}
+              >
                 <div className="icon"></div>
                 <div className="input_wrapper">
                   <input
                     type="checkbox"
                     id={option.id}
                     value={option.label}
+                    onClick={() =>
+                      setCheckedInputs((arr) =>
+                        arr.includes(option.label)
+                          ? arr.filter((el) => el !== option.label)
+                          : [...arr, option.label]
+                      )
+                    }
                     {...register(props.id, {
                       required: props.validation?.required,
                       disabled: props.validation?.disabled,
