@@ -1,0 +1,43 @@
+@use "../../base";
+
+.check_option {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  .icon {
+    min-width: 1rem;
+    height: 1rem;
+    border: inherit;
+    border-radius: 3px;
+  }
+  &:has(input:checked){
+    .icon{
+      background-color: base.$purplish_blue;
+      background-image: url("../../../public/images/icon-checkmark.svg");
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+  .input_wrapper {
+    * {
+      cursor: pointer;
+    }
+
+    input {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+    }
+    label {
+      font-weight: 700;
+    }
+    p {
+      color: base.$cool_gray;
+    }
+  }
+}

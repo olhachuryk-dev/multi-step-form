@@ -1,0 +1,35 @@
+@use '../../base';
+
+@mixin card {
+  border-radius: .7rem;
+  padding: 2.2rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.primary_card {
+  @include card;
+  background-color: base.$white;
+}
+
+.secondary_card {
+  @include card;
+  background-color: base.$white;
+}
+
+.accent_card {
+  @include card;
+  background-color: base.$magnolia;
+}
+
+.padding_none{
+  padding: 0;
+}
+
+.padding_small{
+  padding: 1rem;
+}
+
+.padding_medium {
+ padding: 1.8rem;
+}

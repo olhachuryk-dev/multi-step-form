@@ -1,0 +1,29 @@
+@use "../../base";
+
+.answer_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: base.$marine_blue;
+  label {
+    color: base.$cool_gray;
+    font-weight: 400;
+  }
+  .multiple {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.answer_accent {
+  font-weight: 500;
+  color: base.$purplish_blue;
+}
+
+.answer_last {
+  border-bottom: 1px solid base.$light_gray;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}

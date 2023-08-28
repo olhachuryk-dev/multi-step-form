@@ -1,0 +1,32 @@
+@use "../../base";
+
+fieldset {
+  border: none;
+  padding: 0;
+  color: base.$marine_blue;
+
+  legend {
+    display: none;
+  }
+
+  & > * {
+    &:not(:first-of-type) {
+      margin: 0.7rem 0;
+    }
+    padding: 1rem;
+    border-radius: base.$border-radius-avg;
+    border: 2px solid base.$light_gray;
+    position: relative;
+    -webkit-tap-highlight-color: transparent !important;
+    &:has(input:checked) {
+      background: base.$magnolia;
+      border-color: base.hslac(base.$purplish_blue, 60%);
+    }
+    @media (hover: hover) {
+      /*targets only devices that can hover*/
+      &:hover {
+        background-color: base.$magnolia;
+      }
+    }
+  }
+}

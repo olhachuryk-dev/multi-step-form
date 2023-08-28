@@ -1,0 +1,23 @@
+@use "base";
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  max-width: 100%;
+  font-family: base.$font-family;
+
+  &:focus-visible {
+    outline-color: base.$purplish_blue;
+    transform: scale(1.05);
+  }
+}
+
+.app {
+  min-height: 100vh;
+  background-color: base.$magnolia;
+  background-image: url("../public/images/bg-sidebar-mobile.svg");
+  background-size: 100vw auto;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-attachment: fixed;
+}

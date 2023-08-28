@@ -1,0 +1,44 @@
+@use "../../base";
+
+.tracker_container {
+  width: 100%;
+  padding: 2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.tracker_button {
+  background-color: transparent;
+  border-radius: 50%;
+  border: 1px solid base.$white;
+  height: 2.5em;
+  width: 2.5em;
+  color: base.$white;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent !important;
+}
+.tracker_button:disabled {
+  border-color: base.$light_gray;
+  color: base.$light_gray;
+  cursor: default;
+}
+
+@mixin active_button() {
+  color: base.$marine_blue;
+  background-color: base.$light_blue;
+  border-color: base.$light_blue;
+}
+
+.active {
+  @include active_button();
+}
+
+@media (hover: hover) {
+  /*targets only devices that can hover*/
+  .tracker_button:hover:not(:disabled) {
+    @include active_button();
+  }
+}

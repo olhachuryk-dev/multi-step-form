@@ -1,0 +1,61 @@
+@use "../../base";
+
+.toggle_container {
+  padding: 1rem;
+  background-color: base.$magnolia;
+  text-align: center;
+  margin-bottom: 1rem;
+  min-width: max-content;
+  span {
+    color: base.$cool_gray;
+    font-size: 1rem;
+    font-weight: 700;
+    background-color: transparent;
+  }
+
+  .active {
+    color: base.$marine_blue;
+  }
+
+  button {
+    $base-size: 2.3rem;
+    background-color: base.$marine_blue;
+    border: calc($base-size / 10) solid base.$marine_blue;
+    width: $base-size;
+    aspect-ratio: 1.75 / 1;
+    position: relative;
+    bottom: 5px;
+    border-radius: calc($base-size / 2);
+    margin: 0 20px;
+    * {
+      border-radius: 50%;
+      position: absolute;
+      bottom: 0;
+      height: 100%;
+      aspect-ratio: 1 / 1;
+      left: 0;
+      background-color: base.$white;
+    }
+    .left {
+      transform: translateX(0px);
+      transition: 0.4s;
+    }
+    .right {
+      transform: translateX($base-size * 0.428);
+      transition: 0.4s;
+    }
+  }
+}
+
+@media (width < 320px) {
+  .toggle_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 5px;
+    button {
+      bottom: 0;
+    }
+  }
+}

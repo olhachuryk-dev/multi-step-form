@@ -1,0 +1,41 @@
+@use "../../base";
+
+@mixin btn {
+  cursor: pointer;
+  padding: 0.7rem 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 3px;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.primary_btn {
+  @include btn;
+  background-color: base.$marine_blue;
+  color: base.$white;
+  &:active {
+    background-color: base.hslac(base.$marine_blue, 80%);
+  }
+}
+
+.secondary_btn {
+  @include btn;
+  background-color: base.$white;
+  color: base.$cool_gray;
+  &:active {
+    color: base.$marine_blue;
+  }
+}
+
+.accent_btn {
+  @include btn;
+  background-color: base.$purplish_blue;
+  color: base.$white;
+  &:active {
+    background-color: base.hslac(base.$purplish_blue, 80%);
+  }
+}
+
+.hidden{
+  visibility: hidden;
+}

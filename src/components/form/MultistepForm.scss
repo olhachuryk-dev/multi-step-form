@@ -1,0 +1,33 @@
+@use "../../base";
+
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  gap: 10px;
+}
+
+.form_contents {
+  margin: 0 5%;
+}
+
+.buttons_container {
+  display: flex;
+  justify-content: space-between;
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: hsl(0, 0%, 100%);
+  padding: 1rem 5%;
+  border-top: 3px solid  base.$magnolia;
+}
+
+@media (width > 600px) {
+  .buttons_container {
+    position: static;
+    margin: 0 5%;
+  }
+}

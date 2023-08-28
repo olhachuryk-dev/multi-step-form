@@ -1,0 +1,42 @@
+@use "../../base";
+
+.input_container {
+  margin-bottom: 10px;
+
+  input {
+    color: base.$marine_blue;
+    border-radius: base.$border-radius-avg;
+    border: 1px solid base.$light_gray;
+    width: 100%;
+    padding: 0.6rem;
+    font-weight: 700;
+    font-size: 0.8rem;
+
+    &:focus {
+      outline: none !important;
+      border-color: base.$purplish_blue;
+    }
+
+    &::placeholder {
+      font-weight: 500;
+      color: base.$cool_gray;
+    }
+  }
+
+  &:has(.validation) {
+    input {
+      border-color: base.$strawberry_red;
+    }
+  }
+  .label_wrapper {
+    display: flex;
+    justify-content: space-between;
+    label {
+      color: base.$marine_blue;
+      text-align: left;
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: inline-block;
+    }
+  }
+}
