@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "./reduxHooks";
+import database from "../firebase/firebaseInit";
+import { ref, set } from "firebase/database";
 import { completeStep, fetchSteps, selectAllSteps } from "../store/stepsSlice";
 import { fetchFields, selectStepFields } from "../store/fieldsSlice";
 import { fetchAnswers, selectAllAnswers } from "../store/answersSlice";
+import { IAnswer } from "../store/formTypes";
 
 const useMultistepForm = () => {
   const fieldsStatus = useAppSelector((state) => state.fields.status);
@@ -14,6 +17,7 @@ const useMultistepForm = () => {
   const stepFields = useAppSelector(
     selectStepFields(steps[currentStepIndex]?.id)
   );
+  const dbRef = ref(database, "helga_chu/answers/olhachuryk");
 
   const dispatch = useAppDispatch();
 
@@ -42,6 +46,11 @@ const useMultistepForm = () => {
     setCurrentStepIndex(index);
   }
 
+  function submit(data: IAnswer) {
+    dispatch(completeStep({ stepIndex: currentStepIndex }));
+    set(dbRef, data);
+  }
+
   return {
     steps,
     currentStepIndex,
@@ -50,6 +59,7 @@ const useMultistepForm = () => {
     back,
     next,
     goTo,
+    submit,
   };
 };
 

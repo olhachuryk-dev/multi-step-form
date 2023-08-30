@@ -23,7 +23,7 @@ const StepsTracker = (props: Props) => {
   return (
     <div className="tracker_container">
       {steps.map((step, index) => (
-        <div>
+        <div key={step.id}>
           <button
             type="button"
             disabled={index > enabledStepLastIndex}
@@ -31,7 +31,6 @@ const StepsTracker = (props: Props) => {
             className={`tracker_button ${
               currentStepIndex === index ? "active" : ""
             }`}
-            key={step.id}
             aria-hidden="true"
           >
             {step.order}

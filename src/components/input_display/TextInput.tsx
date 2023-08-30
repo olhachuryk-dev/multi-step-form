@@ -11,7 +11,6 @@ const TextInput = (props: IField) => {
     register,
     formState: { errors },
   } = useFormContext();
-  console.log(errors);
   return (
     <div className="input_container">
       <label htmlFor={props.id}>{props.label}</label>

@@ -22,7 +22,7 @@ const ReviewAnswers = () => {
             field.stepId !== fields[i + 1]?.stepId && i + 1 < fields.length;
           return (
             <div
-              key={field.id}
+              key={`${field.id}-${i}`}
               className={`answer_wrapper ${
                 field.hasChildFields ? "answer_accent" : ""
               } ${isLastStepAnswer ? "answer_last" : ""}`}
