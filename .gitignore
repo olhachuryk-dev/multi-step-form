@@ -26,3 +26,5 @@ yarn-error.log*
 
 #confidential
 firebaseInit.ts
+
+/temp

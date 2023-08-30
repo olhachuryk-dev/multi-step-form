@@ -34,7 +34,7 @@ const MultistepForm = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <div className="form_contents">
+        {/* <div className="form_contents"> */}
           <StepsTracker
             steps={steps}
             currentStepIndex={currentStepIndex}
@@ -43,7 +43,7 @@ const MultistepForm = () => {
           <Card appearence="primary">
             <StepContents step={steps[currentStepIndex]} fields={stepFields} />
           </Card>
-        </div>
+        {/* </div> */}
         <div className="buttons_container">
           <Button
             type="button"

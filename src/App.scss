@@ -21,3 +21,12 @@
   background-position: top center;
   background-attachment: fixed;
 }
+
+@media (min-width: base.$media-mobile-breakpoint-highest){
+  .app{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: none;
+  }
+}

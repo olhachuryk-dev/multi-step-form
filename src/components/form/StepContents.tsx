@@ -1,9 +1,9 @@
-import React from "react";
+import React, { lazy } from "react";
 import Field from "./Field";
 import { IField, IStep } from "../../store/formTypes";
-import ReviewAnswers from "./ReviewAnswers";
 import "./StepContents.scss";
 
+const ReviewAnswers = lazy(() => import("./ReviewAnswers"));
 type Props = {
   step: IStep;
   fields: IField[];

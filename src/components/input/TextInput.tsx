@@ -11,20 +11,15 @@ const TextInput = (props: IField) => {
     register,
     formState: { errors },
   } = useFormContext();
+  console.log(errors);
   return (
     <div className="input_container">
-      <div className="label_wrapper">
-        <div>
-          <label htmlFor={props.id}>{props.label}</label>
-        </div>
-        <div>
-          <ErrorMessage
-            errors={errors}
-            name={props.id}
-            render={({ message }) => <ValidationMsg message={message} />}
-          />
-        </div>
-      </div>
+      <label htmlFor={props.id}>{props.label}</label>
+      <ErrorMessage
+        errors={errors}
+        name={props.id}
+        render={({ message }) => <ValidationMsg message={message} />}
+      />
       <input
         type={props.type}
         placeholder={props.placeholder}

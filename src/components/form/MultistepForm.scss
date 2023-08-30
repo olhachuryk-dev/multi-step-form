@@ -1,33 +1,58 @@
 @use "../../base";
 
-form{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 100vh;
-  gap: 10px;
-}
-
-.form_contents {
-  margin: 0 5%;
+form {
+  & > div:nth-child(2) {
+    margin: 0 5%;
+    width: 90%;
+  }
+  &::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 100px;
+  }
 }
 
 .buttons_container {
   display: flex;
   justify-content: space-between;
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   background-color: hsl(0, 0%, 100%);
   padding: 1rem 5%;
-  border-top: 3px solid  base.$magnolia;
+  border-top: 3px solid base.$magnolia;
 }
 
-@media (min-width: base.$media-mobile-breackpoint-highest) {
+@media (min-width: base.$media-mobile-breakpoint-highest) {
+  form {
+    background: hsl(0, 0%, 100%);
+    display: grid;
+    padding: 5px;
+    border-radius: 12px;
+    grid-template-columns: minmax(250px, 1fr) 2fr;
+    grid-template-rows: minmax(500px, auto) auto;
+    column-gap: 40px;
+    width: 90%;
+    max-width: 750px;
+    min-width: 650px;
+    & > div:nth-child(2) {
+      margin: 0;
+      width: 100%;
+      height: 103%;
+    }
+    &::after {
+      display: none;
+    }
+  }
   .buttons_container {
     position: static;
-    margin: 0 5%;
+    grid-column: 2/3;
+    border-top: 0;
+    border-bottom-right-radius: 0.7rem;
+    border-bottom-left-radius: 0.7rem;
+    padding: 1rem 2.2rem;
+    padding-top: 0;
   }
 }
