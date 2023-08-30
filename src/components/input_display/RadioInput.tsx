@@ -15,14 +15,10 @@ const RadioInput = (props: IField) => {
     formState: { errors },
     getValues,
   } = useFormContext();
+  useSetDefaultChoice(props.id, props.options?.[0].label || "");
 
-  const defaults = useSetDefaultChoice(
-    props.id,
-    props.options?.[0].label || ""
-  );
-
-  const [checkedInputs, setCheckedInputs] = useState<string>(
-    getValues(props.id) || defaults.getValues()
+  const [checkedInput, setCheckedInput] = useState<string>(
+    getValues(props.id) || props.options?.[0].label
   );
   return (
     <>
@@ -33,7 +29,7 @@ const RadioInput = (props: IField) => {
               <div
                 key={option.label}
                 className={`radio_option ${
-                  checkedInputs.includes(option.label) ? "input_checked" : ""
+                  checkedInput === option.label ? "input_checked" : ""
                 }`}
               >
                 {option.icon ? (
@@ -50,7 +46,7 @@ const RadioInput = (props: IField) => {
                     type="radio"
                     id={option.label}
                     value={option.label}
-                    onClick={() => setCheckedInputs(option.label)}
+                    onClick={() => setCheckedInput(option.label)}
                     {...register(props.id, {
                       required: props.validation?.required,
                       disabled: props.validation?.disabled,
