@@ -30,13 +30,15 @@ const ReviewAnswers = () => {
               <label>{label}</label>
               {Array.isArray(answer) ? (
                 <div className="multiple">
-                  {answer.map((a) => (
-                    <span key={a}>{a}</span>
-                  ))}
+                  {answer.length > 0 ? (
+                    answer.map((a) => <span key={a}>{a}</span>)
+                  ) : (
+                    <span>-</span>
+                  )}
                 </div>
               ) : (
                 <div>
-                  <span>{answer}</span>
+                  <span>{answer || "-"}</span>
                 </div>
               )}
             </div>
