@@ -1,9 +1,10 @@
-@use "../../base";
+@use "../../assets/base";
 
 .answer_wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  margin: 5px 0;
   font-size: 0.85rem;
   color: base.$marine_blue;
   label {
@@ -25,5 +26,4 @@
 .answer_last {
   border-bottom: 1px solid base.$light_gray;
   padding-bottom: 0.5rem;
-  margin-bottom: 0.5rem;
 }

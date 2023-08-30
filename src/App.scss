@@ -1,4 +1,4 @@
-@use "base";
+@use "./assets/base";
 
 * {
   margin: 0;
@@ -15,7 +15,7 @@
 .app {
   min-height: 100vh;
   background-color: base.$magnolia;
-  background-image: url("../public/images/bg-sidebar-mobile.svg");
+  background-image: url(./assets/bg-sidebar-mobile.svg);
   background-size: 100vw auto;
   background-repeat: no-repeat;
   background-position: top center;

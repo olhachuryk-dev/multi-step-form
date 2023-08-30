@@ -1,4 +1,4 @@
-import MultistepForm from "./components/form/MultistepForm";
+import MultistepForm from "./components/form_display/MultistepForm";
 import "./App.scss";
 
 function App() {

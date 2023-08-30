@@ -1,26 +1,27 @@
 import { useEffect } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import {
+  FieldValues,
+  FormProvider,
+  SubmitHandler,
+  UseFormReset,
+  useForm,
+} from "react-hook-form";
+import database from "../../firebase/firebaseInit";
+import { ref, set } from "firebase/database";
 import StepsTracker from "./StepsTracker";
 import useMultistepForm from "../../hooks/useMultistepForm";
+import { IAnswer } from "../../store/formTypes";
 import StepContents from "./StepContents";
 import Card from "../UI/Card";
-import database from "../../firebase/firebaseInit";
 import Button from "../UI/Button";
-import { ref, set } from "firebase/database";
 import "./MultistepForm.scss";
 
 const MultistepForm = () => {
   const { steps, currentStepIndex, answers, stepFields, back, next, goTo } =
     useMultistepForm();
-
   const methods = useForm();
-
   const lastStepIndex = steps.length - 1;
-
-  useEffect(() => {
-    if (typeof answers === "string") return;
-    methods.reset(answers);
-  }, [answers, methods]);
+  useResetAnswers(answers, methods.reset);
 
   const onSubmit: SubmitHandler<any> = (data) => {
     const dbRef = ref(database, "helga_chu/answers/olhachuryk");
@@ -35,14 +36,14 @@ const MultistepForm = () => {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         {/* <div className="form_contents"> */}
-          <StepsTracker
-            steps={steps}
-            currentStepIndex={currentStepIndex}
-            goTo={goTo}
-          />
-          <Card appearence="primary">
-            <StepContents step={steps[currentStepIndex]} fields={stepFields} />
-          </Card>
+        <StepsTracker
+          steps={steps}
+          currentStepIndex={currentStepIndex}
+          goTo={goTo}
+        />
+        <Card appearence="primary">
+          <StepContents step={steps[currentStepIndex]} fields={stepFields} />
+        </Card>
         {/* </div> */}
         <div className="buttons_container">
           <Button
@@ -64,3 +65,12 @@ const MultistepForm = () => {
 };
 
 export default MultistepForm;
+
+function useResetAnswers(answers: IAnswer, reset: UseFormReset<FieldValues>) {
+  useEffect(() => {
+    if (typeof answers === "string") return; //do nothing if "answers" are empty ()
+    //else set form answers entered earlier;
+    reset(answers, { keepIsSubmitted: true });
+    //TODO: implement restriction of multiple form submittions
+  }, [answers, reset]);
+}

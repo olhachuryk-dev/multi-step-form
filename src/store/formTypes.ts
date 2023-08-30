@@ -8,7 +8,7 @@ export enum RequestStatus {
 export interface IMultistepForm {
   steps: IStep[];
   fields: IField[];
-  answers:  { [char: string]: string };
+  answers: { [char: string]: string };
 }
 
 export interface IStep {
@@ -41,7 +41,7 @@ export interface IField {
 export interface IFieldOption {
   id: string;
   label: string;
-  icon?: string; 
+  icon?: string;
   description?: string;
 }
 
@@ -56,7 +56,7 @@ export interface IFieldValidation {
   disabled?: boolean;
   onChange?: (e: React.SyntheticEvent) => void;
   value?: unknown;
-  deps?: string | string[]; 
+  deps?: string | string[];
   //deps - Validation will be triggered for the dependent inputs,it only limited to register api not trigger.
   /*
   <input
@@ -65,4 +65,8 @@ export interface IFieldValidation {
     })}
   />
   */
+}
+
+export interface IAnswer {
+  [char: string]: string;
 }
