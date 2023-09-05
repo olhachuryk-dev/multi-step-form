@@ -14,7 +14,13 @@ const initialState: {
   error: "",
 };
 
-export const fetchSteps = createAsyncThunk("steps/fetchSteps", getStepsData);
+export const fetchSteps = createAsyncThunk(
+  "steps/fetchSteps",
+  async (formId: string) => {
+    const response = await getStepsData(formId);
+    return response;
+  }
+);
 
 const stepsSlice = createSlice({
   name: "steps",
@@ -37,10 +43,10 @@ const stepsSlice = createSlice({
           description: "Double-check everything looks OK before confirming.",
           name: "Summary",
           title: "Finishing up",
-          order: parseInt(action.payload.length) + 1,
+          order: parseInt(action?.payload?.length) + 1,
           completed: false,
         };
-        state.data = action.payload.concat(reviewStep);
+        state.data = action.payload?.concat(reviewStep);
       })
       .addCase(fetchSteps.rejected, (state, action) => {
         state.error = action.error.message || "";

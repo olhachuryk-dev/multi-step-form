@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "./reduxHooks";
-import database from "../firebase/firebaseInit";
-import { ref, set } from "firebase/database";
 import { completeStep, fetchSteps, selectAllSteps } from "../store/stepsSlice";
 import { fetchFields, selectStepFields } from "../store/fieldsSlice";
 import { fetchAnswers, selectAllAnswers } from "../store/answersSlice";
 import { IAnswer } from "../store/formTypes";
+import { setFormAnswers } from "../firebase/setFormData";
 
-const useMultistepForm = () => {
+const useMultistepForm = (formId: string, userId: string) => {
   const fieldsStatus = useAppSelector((state) => state.fields.status);
   const stepsStatus = useAppSelector((state) => state.steps.status);
   const answersStatus = useAppSelector((state) => state.answers.status);
@@ -17,21 +16,20 @@ const useMultistepForm = () => {
   const stepFields = useAppSelector(
     selectStepFields(steps[currentStepIndex]?.id)
   );
-  const dbRef = ref(database, "helga_chu/answers/olhachuryk");
-
+  const isValid = useMemo(() => steps.length > 1, [steps]);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (fieldsStatus === "idle") {
-      dispatch(fetchFields());
+      dispatch(fetchFields(formId));
     }
     if (stepsStatus === "idle") {
-      dispatch(fetchSteps());
+      dispatch(fetchSteps(formId));
     }
     if (answersStatus === "idle") {
-      dispatch(fetchAnswers());
+      dispatch(fetchAnswers({ formId, userId }));
     }
-  }, [fieldsStatus, stepsStatus, answersStatus, dispatch]);
+  }, [fieldsStatus, stepsStatus, answersStatus, dispatch, formId, userId]);
 
   function back() {
     setCurrentStepIndex((step) => step - 1);
@@ -48,10 +46,11 @@ const useMultistepForm = () => {
 
   function submit(data: IAnswer) {
     dispatch(completeStep({ stepIndex: currentStepIndex }));
-    set(dbRef, data);
+    setFormAnswers(formId, userId, data);
   }
 
   return {
+    isValid, // not === 0 because completion step is added automatically
     steps,
     currentStepIndex,
     stepFields,

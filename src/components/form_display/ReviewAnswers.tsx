@@ -10,7 +10,6 @@ const ReviewAnswers = () => {
   const { getValues } = useFormContext();
   const fields = useAppSelector(selectAllFields);
   const answers: IMultistepForm["answers"] = getValues();
-
   return (
     <Card appearence="accent" padding="small">
       <>

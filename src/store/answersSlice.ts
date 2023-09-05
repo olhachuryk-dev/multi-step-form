@@ -15,13 +15,16 @@ const initialState: {
 
 export const fetchAnswers = createAsyncThunk(
   "answers/fetchAnswers",
-  getUserAnswerData
+  async ({ formId, userId }: { formId: string; userId: string }) => {
+    const response = await getUserAnswerData({ formId, userId });
+    return response;
+  }
 );
 
 const answersSlice = createSlice({
   name: "answers",
   initialState: initialState,
-  reducers: { },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchAnswers.pending, (state, action) => {

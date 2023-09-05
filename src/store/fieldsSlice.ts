@@ -16,7 +16,10 @@ const initialState: {
 
 export const fetchFields = createAsyncThunk(
   "fields/fetchFields",
-  getFieldsData
+  async (formId: string) => {
+    const response = await getFieldsData(formId);
+    return response;
+  }
 );
 
 const fieldsSlice = createSlice({
@@ -39,8 +42,8 @@ const fieldsSlice = createSlice({
           return field.parentField
             ? (field.parentField.display =
                 field.parentField?.parentOptionId === toggledOption?.id)
-            : field
-            });
+            : field;
+        });
       }
     },
   },
@@ -60,11 +63,10 @@ const fieldsSlice = createSlice({
   },
 });
 
-export const {
-  displayChildFields,
-} = fieldsSlice.actions;
+export const { displayChildFields } = fieldsSlice.actions;
 
 export const selectAllFields = (state: RootState) => state.fields.data;
 export const selectStepFields = (stepId: string) => (state: RootState) =>
   state.fields.data.filter((field) => field.stepId === stepId);
+
 export default fieldsSlice.reducer;

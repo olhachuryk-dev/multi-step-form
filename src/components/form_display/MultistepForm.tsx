@@ -14,8 +14,14 @@ import Card from "../UI/Card";
 import Button from "../UI/Button";
 import "./MultistepForm.scss";
 
-const MultistepForm = () => {
+type Props = {
+  formId: string;
+  userId: string;
+};
+
+const MultistepForm = ({ formId, userId }: Props) => {
   const {
+    isValid,
     steps,
     currentStepIndex,
     answers,
@@ -24,7 +30,7 @@ const MultistepForm = () => {
     next,
     goTo,
     submit,
-  } = useMultistepForm();
+  } = useMultistepForm(formId, userId);
   const methods = useForm();
 
   useResetAnswers(answers, methods.reset);
@@ -38,7 +44,6 @@ const MultistepForm = () => {
       submit(data);
     }
   };
-
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -48,10 +53,11 @@ const MultistepForm = () => {
           goTo={goTo}
         />
         <Card appearence="primary">
-          <StepContents step={steps[currentStepIndex]} fields={stepFields} />
+          <StepContents step={steps[currentStepIndex]} fields={stepFields} isValid = {isValid}/>
         </Card>
-        {currentStepIndex === lastStepIndex &&
-        steps[currentStepIndex].completed === true ? (
+        {(currentStepIndex === lastStepIndex &&
+          steps[currentStepIndex].completed === true) ||
+        !isValid ? (
           <></>
         ) : (
           <div className="buttons_container">
