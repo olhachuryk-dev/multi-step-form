@@ -1,4 +1,4 @@
-@use "../../assets/base";
+@use "../../../assets/base";
 
 .check_option {
   display: flex;
@@ -17,7 +17,7 @@
     border-color: base.hslac(base.$purplish_blue, 60%);
     .icon {
       background-color: base.$purplish_blue;
-      background-image: url(../../assets/icon-checkmark.svg);
+      background-image: url(../../../assets/icon-checkmark.svg);
       background-size: 100%;
       background-repeat: no-repeat;
       background-position: center;

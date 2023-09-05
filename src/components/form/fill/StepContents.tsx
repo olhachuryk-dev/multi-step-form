@@ -1,7 +1,7 @@
 import React from "react";
 import Field from "./Field";
 import ReviewAnswers from "./ReviewAnswers";
-import { IField, IStep } from "../../store/formTypes";
+import { IField, IStep } from "../../../store/formTypes";
 import "./StepContents.scss";
 
 type Props = {

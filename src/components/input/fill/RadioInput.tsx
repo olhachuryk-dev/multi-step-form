@@ -1,9 +1,9 @@
 import { useFormContext } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { IField } from "../../store/formTypes";
-import useSetDefaultChoice from "../../hooks/useSetDefaultChoice";
-import Fieldset from "../UI/Fieldset";
-import ValidationMsg from "../UI/ValidationMsg";
+import { IField } from "../../../store/formTypes";
+import useSetDefaultChoice from "../../../hooks/useSetDefaultChoice";
+import Fieldset from "../../UI/Fieldset";
+import ValidationMsg from "../../UI/ValidationMsg";
 import "./RadioInput.scss";
 import { useState } from "react";
 

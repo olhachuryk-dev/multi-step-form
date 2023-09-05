@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { IStep } from "../../store/formTypes";
+import { IStep } from "../../../store/formTypes";
 import "./StepsTracker.scss";
 
 type Props = {

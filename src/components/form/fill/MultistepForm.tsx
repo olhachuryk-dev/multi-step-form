@@ -7,11 +7,11 @@ import {
   useForm,
 } from "react-hook-form";
 import StepsTracker from "./StepsTracker";
-import useMultistepForm from "../../hooks/useMultistepForm";
-import { IAnswer } from "../../store/formTypes";
+import useMultistepForm from "../../../hooks/useMultistepForm";
+import { IAnswer } from "../../../store/formTypes";
 import StepContents from "./StepContents";
-import Card from "../UI/Card";
-import Button from "../UI/Button";
+import Card from "../../UI/Card";
+import Button from "../../UI/Button";
 import "./MultistepForm.scss";
 
 type Props = {

@@ -1,9 +1,9 @@
 import React from "react";
-import { useAppSelector } from "../../hooks/reduxHooks";
-import { selectAllFields } from "../../store/fieldsSlice";
-import Card from "../UI/Card";
+import { useAppSelector } from "../../../hooks/reduxHooks";
+import { selectAllFields } from "../../../store/fieldsSlice";
+import Card from "../../UI/Card";
 import { useFormContext } from "react-hook-form";
-import { IMultistepForm } from "../../store/formTypes";
+import { IMultistepForm } from "../../../store/formTypes";
 import "./ReviewAnswers.scss";
 
 const ReviewAnswers = () => {

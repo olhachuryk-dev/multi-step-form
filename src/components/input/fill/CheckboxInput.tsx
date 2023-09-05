@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { IField } from "../../store/formTypes";
+import { IField } from "../../../store/formTypes";
 import { useFormContext } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import Fieldset from "../UI/Fieldset";
-import ValidationMsg from "../UI/ValidationMsg";
+import Fieldset from "../../UI/Fieldset";
+import ValidationMsg from "../../UI/ValidationMsg";
 import "./CheckboxInput.scss";
 
 //for checkboxes and readiobuttons

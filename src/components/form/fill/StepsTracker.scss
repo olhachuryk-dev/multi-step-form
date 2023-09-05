@@ -1,4 +1,4 @@
-@use "../../assets/base";
+@use "../../../assets/base";
 
 .tracker_container {
   width: 100%;
@@ -56,7 +56,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     gap: 1rem;
-    background: url(../../assets/bg-sidebar-desktop.svg);
+    background: url(../../../assets/bg-sidebar-desktop.svg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: bottom center;

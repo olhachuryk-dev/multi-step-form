@@ -1,9 +1,9 @@
 import React from "react";
-import TextInput from "../input_display/TextInput";
-import RadioInput from "../input_display/RadioInput";
-import CheckboxInput from "../input_display/CheckboxInput";
-import ToggleInput from "../input_display/ToggleInput";
-import { IField } from "../../store/formTypes";
+import TextInput from "../../input/fill/TextInput";
+import RadioInput from "../../input/fill/RadioInput";
+import CheckboxInput from "../../input/fill/CheckboxInput";
+import ToggleInput from "../../input/fill/ToggleInput";
+import { IField } from "../../../store/formTypes";
 
 const Field = (props: IField) => {
     switch (props.type) {

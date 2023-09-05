@@ -1,7 +1,7 @@
-import { IField } from "../../store/formTypes";
+import { IField } from "../../../store/formTypes";
 import { useFormContext } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import ValidationMsg from "../UI/ValidationMsg";
+import ValidationMsg from "../../UI/ValidationMsg";
 import "./TextInput.scss";
 
 // for text inputs like text, email, tel.

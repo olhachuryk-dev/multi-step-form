@@ -1,4 +1,4 @@
-@use "../../assets/base";
+@use "../../../assets/base";
 
 .step_container {
   width: 100%;
@@ -19,7 +19,7 @@
   &:before{
     content: "";
     display: block;
-    background-image: url(../../assets/icon-thank-you.svg);
+    background-image: url(../../../assets/icon-thank-you.svg);
     background-size: contain;
     height: 80px;
     width: 100%;
