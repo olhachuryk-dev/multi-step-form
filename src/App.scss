@@ -20,13 +20,46 @@
   background-repeat: no-repeat;
   background-position: top center;
   background-attachment: fixed;
+
+  form {
+    & > div:nth-child(2) {
+      margin: 0 5%;
+      width: 90%;
+    }
+    &::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 100px;
+    }
+  }
 }
 
-@media (min-width: base.$media-mobile-breakpoint-highest){
-  .app{
+@media (min-width: base.$media-mobile-breakpoint-highest) {
+  .app {
     display: flex;
     align-items: center;
     justify-content: center;
     background-image: none;
+    form {
+      background: hsl(0, 0%, 100%);
+      display: grid;
+      padding: 5px;
+      border-radius: 12px;
+      grid-template-columns: minmax(250px, 1fr) 2fr;
+      grid-template-rows: minmax(500px, auto) auto;
+      column-gap: 40px;
+      width: 90%;
+      max-width: 750px;
+      min-width: 650px;
+      & > div:nth-child(2) {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+      }
+      &::after {
+        display: none;
+      }
+    }
   }
 }

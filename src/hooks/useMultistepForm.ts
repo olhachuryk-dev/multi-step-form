@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "./reduxHooks";
-import { completeStep, fetchSteps, selectAllSteps } from "../store/stepsSlice";
-import { fetchFields, selectStepFields } from "../store/fieldsSlice";
-import { fetchAnswers, selectAllAnswers } from "../store/answersSlice";
-import { IAnswer } from "../store/formTypes";
+import { completeStep, fetchSteps, selectAllSteps } from "../redux/stepsSlice";
+import { fetchFields, selectStepFields } from "../redux/fieldsSlice";
+import { fetchAnswers, selectAllAnswers } from "../redux/answersSlice";
+import { IAnswer, RequestStatus } from "../redux/formTypes";
 import { setFormAnswers } from "../firebase/setFormData";
 
 const useMultistepForm = (formId: string, userId: string) => {
@@ -16,17 +16,17 @@ const useMultistepForm = (formId: string, userId: string) => {
   const stepFields = useAppSelector(
     selectStepFields(steps[currentStepIndex]?.id)
   );
-  const isValid = useMemo(() => steps.length > 1, [steps]);
+  const isValid = useMemo(() => steps.length > 0, [steps]);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (fieldsStatus === "idle") {
+    if (fieldsStatus === RequestStatus.IDLE) {
       dispatch(fetchFields(formId));
     }
-    if (stepsStatus === "idle") {
+    if (stepsStatus === RequestStatus.IDLE) {
       dispatch(fetchSteps(formId));
     }
-    if (answersStatus === "idle") {
+    if (answersStatus === RequestStatus.IDLE) {
       dispatch(fetchAnswers({ formId, userId }));
     }
   }, [fieldsStatus, stepsStatus, answersStatus, dispatch, formId, userId]);
@@ -50,7 +50,7 @@ const useMultistepForm = (formId: string, userId: string) => {
   }
 
   return {
-    isValid, // not === 0 because completion step is added automatically
+    isValid,
     steps,
     currentStepIndex,
     stepFields,

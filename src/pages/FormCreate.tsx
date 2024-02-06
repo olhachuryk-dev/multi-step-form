@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import FormConstructor from "../components/FormConstructor/FormConstructor";
 
 const FormCreate = () => {
-  return (
-    <div>FormCreate</div>
-  )
-}
+  return <FormConstructor />;
+};
 
-export default FormCreate
+export default FormCreate;

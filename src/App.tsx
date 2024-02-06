@@ -1,26 +1,11 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-} from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
+import BrowserRouter from "./router/BrowserRouter";
 import "./App.scss";
-import FormCreate from "./pages/FormCreate";
-import FormDisplay from "./pages/FormDisplay";
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/">
-      <Route index element={<FormCreate />} />
-      <Route path=":formId" element={<FormDisplay />} />
-    </Route>
-  )
-);
 
 function App() {
   return (
     <div className="app">
-      <RouterProvider router={router} />
+      <RouterProvider router={BrowserRouter} />
     </div>
   );
 }

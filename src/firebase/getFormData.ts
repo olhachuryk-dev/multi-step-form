@@ -42,7 +42,7 @@ export const getUserAnswerData = async ({
     if (snapshot.exists()) {
       return snapshot.val();
     } else {
-      return [];
+      return {};
     }
   } catch (error) {
     return error;

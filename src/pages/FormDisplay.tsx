@@ -1,5 +1,5 @@
 import React from "react";
-import MultistepForm from "../components/form/fill/MultistepForm";
+import MultistepForm from "../components/MultistepForm/MultistepForm";
 import { useParams } from "react-router-dom";
 
 const FormDisplay = () => {

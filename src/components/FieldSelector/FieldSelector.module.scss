@@ -1,0 +1,54 @@
+@use "../../assets/base";
+
+$icon-size: 3rem;
+.grid {
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(auto-fill, $icon-size);
+  grid-template-rows: auto;
+  .option {
+    &:not(:first-of-type) {
+      margin: 0;
+    }
+    width: $icon-size;
+    height: $icon-size;
+    padding: 0;
+    border-radius: 0.75rem;
+    img,
+    &.option_checked {
+      background: base.$magnolia;
+      border-color: base.hslac(base.$purplish_blue, 60%);
+    }
+    img {
+      width: $icon-size;
+      height: $icon-size;
+      object-fit: contain;
+      object-position: top center;
+      background-color: transparent;
+    }
+    div {
+      display: inline-block;
+      * {
+        cursor: pointer;
+      }
+
+      input {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+      }
+      label {
+        font-weight: 700;
+      }
+      p {
+        color: base.$cool_gray;
+      }
+    }
+  }
+}

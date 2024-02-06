@@ -1,0 +1,33 @@
+@use "../../assets/base";
+
+.fieldset {
+  border: none;
+  padding: 0;
+  color: base.$marine_blue;
+
+  legend {
+    padding-bottom: 5px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    &.hidden {
+      display: none;
+    }
+  }
+
+  & > div {
+    &:not(:first-of-type) {
+      margin: 12px 0;
+    }
+    padding: 16px;
+    border-radius: base.$border-radius-avg;
+    border: 2px solid base.$light_gray;
+    position: relative;
+    -webkit-tap-highlight-color: transparent !important;
+    @media (hover: hover) {
+      /*targets only devices that can hover*/
+      &:hover {
+        background-color: base.$magnolia;
+      }
+    }
+  }
+}
