@@ -1,0 +1,11 @@
+@use "../../assets/base";
+
+.error_msg {
+  color: base.$strawberry_red;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: right;
+  display: inline-block;
+  width: 100%;
+  text-align: right;
+}

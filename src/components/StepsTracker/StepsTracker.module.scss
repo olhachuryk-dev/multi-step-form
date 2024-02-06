@@ -1,0 +1,66 @@
+@use "../../assets/base";
+
+@mixin active_button() {
+  color: base.$marine_blue;
+  background-color: base.$light_blue;
+  border-color: base.$light_blue;
+}
+
+.tracker_wrapper {
+  & > :not(button) {
+    display: none;
+  }
+  button {
+    background-color: transparent;
+    border-radius: 50%;
+    border: 1px solid base.$white;
+    height: 2.5em;
+    width: 2.5em;
+    color: base.$white;
+    font-weight: 700;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent !important;
+    &:disabled {
+      border-color: base.$light_gray;
+      color: base.$light_gray;
+      cursor: default;
+      &:active {
+        background-color: base.hslac(base.$light_gray, 0.2);
+      }
+    }
+    &.active {
+      @include active_button();
+    }
+  }
+
+  @media (hover: hover) {
+    /*targets only devices that can hover*/
+    button:hover:not(:disabled) {
+      @include active_button();
+    }
+  }
+}
+
+@media (min-width: base.$media-mobile-breakpoint-highest) {
+  .tracker_wrapper {
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: 2.5rem 70%;
+    grid-template-rows: 1rem 1.25rem;
+    & :not(button) {
+      display: block;
+      grid-column: 2/3;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: white;
+      letter-spacing: 1px;
+      font-size: 0.8rem;
+      align-self: start;
+    }
+    label {
+      font-size: 0.7rem;
+      opacity: 0.7;
+      align-self: end;
+    }
+  }
+}

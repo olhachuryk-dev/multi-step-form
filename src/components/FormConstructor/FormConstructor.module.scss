@@ -1,0 +1,15 @@
+@use "../../assets/base";
+
+.title {
+  color: base.$marine_blue;
+  padding: 0.7rem 0;
+}
+.delete_btn{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  &:disabled {
+    cursor:none;
+    visibility: hidden;
+  }
+}

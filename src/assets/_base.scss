@@ -23,6 +23,7 @@ $magnolia: hsl(217, 100%, 97%);
 $alabaster: hsl(231, 100%, 99%);
 $white: hsl(0, 0%, 100%);
 
-$border-radius-avg: 0.5em;
+$border-radius-avg: 8px;
 
-$max-width-mobile: 425px;
+$media-mobile-breakpoint-lowest: 320px;
+$media-mobile-breakpoint-highest: 650px;

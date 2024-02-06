@@ -1,0 +1,26 @@
+@use "../../assets/base";
+
+.buttons_group {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: hsl(0, 0%, 100%);
+  padding: 1rem 5%;
+  border-top: 3px solid base.$magnolia;
+}
+
+@media (min-width: base.$media-mobile-breakpoint-highest) {
+  .buttons_group {
+    max-height: 3.375rem;
+    position: static;
+    grid-column: 2/3;
+    border-top: 0;
+    border-bottom-right-radius: 0.7rem;
+    border-bottom-left-radius: 0.7rem;
+    padding: 1rem 2.2rem;
+    padding-top: 0;
+  }
+}
