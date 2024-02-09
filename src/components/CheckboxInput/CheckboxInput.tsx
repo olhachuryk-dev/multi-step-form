@@ -1,27 +1,30 @@
-import { useState } from "react";
-import { IField } from "../../redux/formTypes";
+import React, { useState } from "react";
+import { IField } from "../../types/IField";
 import { useFormContext } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import Fieldset from "../../shared/Fieldset/Fieldset";
 import ValidationMsg from "../../shared/ValidationMsg/ValidationMsg";
 import styles from "./CheckboxInput.module.scss";
 
-//for checkboxes and readiobuttons
-
-const CheckboxInput = (props: IField) => {
+const CheckboxInput: React.FC<IField> = ({
+  id,
+  label,
+  options,
+  validation,
+}) => {
   const {
     register,
     formState: { errors },
     getValues,
   } = useFormContext();
   const [checkedInputs, setCheckedInputs] = useState<string[]>(
-    getValues(props.id) || [""]
+    getValues(id) || [""]
   );
   return (
     <>
-      <Fieldset legend={props.label}>
+      <Fieldset legend={label} id={id}>
         <>
-          {props.options?.map((option) => {
+          {options?.map((option) => {
             return (
               <div
                 key={option.label}
@@ -44,9 +47,9 @@ const CheckboxInput = (props: IField) => {
                           : [...arr, option.label]
                       )
                     }
-                    {...register(props.id, {
-                      required: props.validation?.required,
-                      disabled: props.validation?.disabled,
+                    {...register(id, {
+                      required: validation?.required,
+                      disabled: validation?.disabled,
                     })}
                   />
                   <label htmlFor={option.id}>{option.label}</label>
@@ -59,7 +62,7 @@ const CheckboxInput = (props: IField) => {
       </Fieldset>
       <ErrorMessage
         errors={errors}
-        name={props.id}
+        name={id}
         render={({ message }) => <ValidationMsg message={message} />}
       />
     </>

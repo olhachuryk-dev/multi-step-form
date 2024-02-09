@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { IStep } from "../../redux/formTypes";
+import { IStep } from "../../types/IStep";
 import Panel from "../../shared/Panel/Panel";
 import styles from "./StepsTracker.module.scss";
 import { useFormContext } from "react-hook-form";

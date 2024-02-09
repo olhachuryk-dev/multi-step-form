@@ -5,7 +5,7 @@ import {
   useForm,
 } from "react-hook-form";
 import useFormConstructor from "../../hooks/useFormConstructor";
-import StepTitleInput from "../StepTItleInput/StepTitleInput";
+import StepInput from "../StepInput/StepInput";
 import FieldSelector from "../FieldSelector/FieldSelector";
 import Card from "../../shared/Card/Card";
 import ButtonsGroup from "../../shared/ButtonsGroup/ButtonsGroup";
@@ -13,19 +13,34 @@ import Button from "../../shared/Button/Button";
 import Panel from "../../shared/Panel/Panel";
 import iconTrashcan from "../../assets/Trash.svg";
 import styles from "./FormConstructor.module.scss";
-import Spacer from "../../shared/Spacer/Spacer";
 
 const FormConstructor = () => {
-  const { submit, addStep, removeStep, steps } = useFormConstructor();
+  const {
+    submit,
+    addStep,
+    addField,
+    removeStep,
+    currentStepIndex,
+    back,
+    next,
+    goTo,
+    steps,
+    stepFields,
+  } = useFormConstructor();
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     submit(data);
   };
   const methods = useForm();
+  stepFields.forEach((field) => {
+    console.log(field);
+  });
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <Panel>
-          <Button name="Add step" appearence="accent" />
+          <div className={styles.addStep_btn}>
+            <Button name="Add step" appearence="accent" onClick={addStep} />
+          </div>
         </Panel>
         <Card appearence="primary">
           <>
@@ -42,39 +57,42 @@ const FormConstructor = () => {
                     <img src={iconTrashcan} alt="delete" />
                   </button>
                 </div>
-                <StepTitleInput
-                  step={step}
-                  label="title"
-                  currentStepIndex={i}
+                <StepInput
+                  id={`${step.id}.title`}
+                  label="Step title"
                   required={true}
                   placeholder="e.g. Contact Info"
                 />
-                <StepTitleInput
-                  step={step}
-                  label="name"
-                  currentStepIndex={i}
+                <StepInput
+                  id={`${step.id}.name`}
+                  label="Step name"
                   required={false}
-                  placeholder="Shortened title"
+                  placeholder="e.g. Contacts"
                 />
-                <StepTitleInput
-                  step={step}
-                  label="description"
-                  currentStepIndex={i}
+                <StepInput
+                  id={`${step.id}.description`}
+                  label="Step description"
                   required={false}
                   multiline={true}
                   placeholder="e.g. Please provide your name, email address, and phone number."
                 />
-                <FieldSelector
-                  step={step}
-                  fieldIndex={0}
-                  currentStepIndex={i}
+                {stepFields.map((field) => (
+                  <FieldSelector
+                    key={field.id}
+                    step={step}
+                    fieldId={`${step.id}.fields.${field.id}`}
+                  />
+                ))}
+                <Button
+                  name="Add Field"
+                  onClick={() => {
+                    console.log("add step");
+                    addField(step.id);
+                  }}
                 />
               </div>
             ))}
           </>
-          <Spacer size={20} />
-          <Button name="Add" onClick={addStep} />
-          <Spacer size={20} />
         </Card>
         <ButtonsGroup>
           <Button

@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { getUserAnswerData } from "../firebase/getFormData";
-import { IAnswer, RequestStatus } from "./formTypes";
+import { getUserAnswerData } from "../services/firebase/getFormData";
+import { IAnswer } from "../types/IAnswer";
+import  RequestStatus  from "../types/requestStatus";
 
 const initialState: {
   data: IAnswer;

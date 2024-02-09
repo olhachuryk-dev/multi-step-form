@@ -1,4 +1,4 @@
-import { IField } from "../../redux/formTypes";
+import { IField } from "../../types/IField";
 import { useFormContext } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import ValidationMsg from "../../shared/ValidationMsg/ValidationMsg";

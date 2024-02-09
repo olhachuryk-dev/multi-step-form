@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "./reduxHooks";
-import { completeStep, fetchSteps, selectAllSteps } from "../redux/stepsSlice";
-import { fetchFields, selectStepFields } from "../redux/fieldsSlice";
-import { fetchAnswers, selectAllAnswers } from "../redux/answersSlice";
-import { IAnswer, RequestStatus } from "../redux/formTypes";
-import { setFormAnswers } from "../firebase/setFormData";
+import { completeStep, fetchSteps, selectAllSteps } from "../store/stepsSlice";
+import { fetchAnswers, selectAllAnswers } from "../store/answersSlice";
+import { fetchFields, selectStepFields } from "../store/fieldsSlice";
+import RequestStatus from "../types/requestStatus";
+import { IAnswer } from "../types/IAnswer";
+import { setFormAnswers } from "../services/firebase/setFormData";
 
 const useMultistepForm = (formId: string, userId: string) => {
   const fieldsStatus = useAppSelector((state) => state.fields.status);

@@ -6,6 +6,12 @@
   color: base.$marine_blue;
 
   legend {
+    display: flex;
+    width: 100%;
+    span{
+      min-width: max-content;
+    }
+    justify-content: space-between;
     padding-bottom: 5px;
     font-size: 0.8rem;
     font-weight: 500;

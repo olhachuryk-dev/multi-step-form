@@ -8,7 +8,7 @@ import {
 } from "react-hook-form";
 import StepsTracker from "../StepsTracker/StepsTracker";
 import useMultistepForm from "../../hooks/useMultistepForm";
-import { IAnswer } from "../../redux/formTypes";
+import { IAnswer } from "../../types/IAnswer";
 import StepContents from "../StepContents/StepContents";
 import Card from "../../shared/Card/Card";
 import Button from "../../shared/Button/Button";
@@ -23,9 +23,9 @@ const MultistepForm: React.FC<Props> = ({ formId, userId }) => {
   const {
     isValid,
     steps,
-    currentStepIndex,
     answers,
     stepFields,
+    currentStepIndex,
     back,
     next,
     goTo,

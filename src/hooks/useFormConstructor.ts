@@ -1,39 +1,52 @@
-import { useState, useMemo, useEffect } from "react";
-import { IStep } from "../redux/formTypes";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "./reduxHooks";
-// import { setFormStructure } from "../firebase/setFormData";
-import { createStep, deleteStep, selectAllSteps } from "../redux/stepsSlice";
-import { selectStepFields } from "../redux/fieldsSlice";
+import {
+  completeStep,
+  createStep,
+  deleteStep,
+  selectAllSteps,
+} from "../store/stepsSlice";
 import { FieldValues } from "react-hook-form";
+import {
+  addNewField,
+  selectAllFields,
+  selectStepFields,
+} from "../store/fieldsSlice";
 
 const useFormConstructor = () => {
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const dispatch = useAppDispatch();
   const steps = useAppSelector(selectAllSteps);
-  useEffect(() => {
-    if (steps.length === 0) {
-      dispatch(createStep({ isFirstStep: true }));
-    }
-  }, [steps, dispatch]);
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const currentStep = useMemo<IStep>(
-    () => steps[currentStepIndex],
-    [currentStepIndex, steps]
+  const fields = useAppSelector(selectAllFields);
+  const stepFields = useAppSelector(
+    selectStepFields(steps[currentStepIndex]?.id)
   );
-  const stepFields = useAppSelector(selectStepFields(currentStep?.id));
+  useEffect(() => {
+    dispatch(createStep({ isFirstStep: true }));
+  }, []);
 
+  function addStep() {
+    dispatch(createStep());
+  }
+
+  function addField(stepId: string) {
+    dispatch(addNewField({ stepId }));
+  }
+
+  function removeStep(index: number) {
+    dispatch(deleteStep({ stepIndex: index }));
+  }
+
+  function finishStep() {
+    dispatch(completeStep({ stepIndex: currentStepIndex }));
+  }
   function back() {
     setCurrentStepIndex((step) => step - 1);
   }
 
-  function addStep() {
-    dispatch(createStep());
-    setCurrentStepIndex(steps.length);
-  }
-
-  function removeStep(index: number) {
-    if (currentStepIndex === index)
-      setCurrentStepIndex((i) => (i === 0 ? 1 : i - 1));
-    dispatch(deleteStep({ stepIndex: index }));
+  function next() {
+    finishStep();
+    setCurrentStepIndex((step) => step + 1);
   }
 
   function goTo(index: number) {
@@ -41,6 +54,7 @@ const useFormConstructor = () => {
   }
 
   function submit(data: FieldValues) {
+    finishStep();
     //TODO: transform data to IMultistepForm type;
     /*
     [
@@ -53,15 +67,19 @@ const useFormConstructor = () => {
     const constructorData = {};
     // setFormStructure("chubaka", data);
   }
+
   return {
+    finishStep,
     back,
+    next,
+    goTo,
     addStep,
     removeStep,
-    goTo,
+    addField,
     submit,
     steps,
+    fields,
     currentStepIndex,
-    currentStep,
     stepFields,
   };
 };
