@@ -3,9 +3,9 @@ import TextInput from "../TextInput/TextInput";
 import RadioInput from "../RadioInput/RadioInput";
 import CheckboxInput from "../CheckboxInput/CheckboxInput";
 import ToggleInput from "../ToggleInput/ToggleInput";
-import { IField } from "../../redux/formTypes";
+import { IField } from "../../types/IField";
 
-const Field = (props: IField) => {
+const Field: React.FC<IField> = (props) => {
   switch (props.type) {
     case "text":
       return <TextInput {...props} key={props.id} />;

@@ -1,6 +1,6 @@
 import { ref, set } from "firebase/database";
 import database from "./firebaseInit";
-import { IMultistepForm } from "../redux/formTypes";
+import { IMultistepForm } from "../../types/IMultistepForm";
 
 export function setFormStructure(formId: string, form: IMultistepForm) {
   //https://firebase.google.com/docs/database/web/lists-of-data?hl=en&authuser=0#reading_and_writing_lists

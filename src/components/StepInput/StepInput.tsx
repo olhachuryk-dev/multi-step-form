@@ -1,24 +1,21 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { IStep } from "../../redux/formTypes";
 import { ErrorMessage } from "@hookform/error-message";
 import ValidationMsg from "../../shared/ValidationMsg/ValidationMsg";
-import styles from "./StepTitleInput.module.scss";
+import styles from "./StepInput.module.scss";
 
 type Props = {
-  step: IStep;
-  label: "title" | "name" | "description";
-  currentStepIndex: number;
+  id: string;
+  label: string;
   required: boolean;
   placeholder?: string;
   multiline?: boolean;
 };
 
-const StepTitleInput: React.FC<Props> = ({
-  step,
+const StepInput: React.FC<Props> = ({
   label,
-  currentStepIndex,
   required,
+  id,
   placeholder = "Some text",
   multiline = false,
 }) => {
@@ -26,11 +23,11 @@ const StepTitleInput: React.FC<Props> = ({
     formState: { errors },
     register,
   } = useFormContext();
-  const id = `${step.id}.${label}`;
   return (
     <div className={styles.input_container}>
       <label htmlFor={id}>
-        Step {label} {required ? "*" : ""}
+        {label}
+        {required ? "*" : ""}
       </label>
       <ErrorMessage
         errors={errors}
@@ -41,7 +38,7 @@ const StepTitleInput: React.FC<Props> = ({
         <textarea
           placeholder={placeholder}
           {...register(id, {
-            required: required,
+            required: required && "Required",
             minLength: 1,
           })}
         />
@@ -50,7 +47,7 @@ const StepTitleInput: React.FC<Props> = ({
           type="text"
           placeholder={placeholder}
           {...register(id, {
-            required: required ? "Required" : false,
+            required: required && "Required",
             minLength: 1,
           })}
         />
@@ -59,4 +56,4 @@ const StepTitleInput: React.FC<Props> = ({
   );
 };
 
-export default StepTitleInput;
+export default StepInput;

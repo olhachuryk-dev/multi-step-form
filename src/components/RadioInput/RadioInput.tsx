@@ -1,30 +1,28 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { IField } from "../../redux/formTypes";
+import { IField } from "../../types/IField";
 import useSetDefaultChoice from "../../hooks/useSetDefaultChoice";
 import Fieldset from "../../shared/Fieldset/Fieldset";
 import ValidationMsg from "../../shared/ValidationMsg/ValidationMsg";
 import styles from "./RadioInput.module.scss";
 
-//for  readiobuttons
-
-const RadioInput = (props: IField) => {
+const RadioInput: React.FC<IField> = ({ id, label, options, validation }) => {
   const {
     register,
     formState: { errors },
     getValues,
   } = useFormContext();
-  useSetDefaultChoice(props.id, props.options?.[0].label || "");
+  useSetDefaultChoice(id, options?.[0].label || "");
 
   const [checkedInput, setCheckedInput] = useState<string>(
-    getValues(props.id) || props.options?.[0].label
+    getValues(id) || options?.[0].label
   );
   return (
     <>
-      <Fieldset legend={props.label}>
+      <Fieldset legend={label} id={id}>
         <>
-          {props.options?.map((option) => {
+          {options?.map((option) => {
             return (
               <div
                 key={option.label}
@@ -47,10 +45,10 @@ const RadioInput = (props: IField) => {
                     id={option.label}
                     value={option.label}
                     onClick={() => setCheckedInput(option.label)}
-                    {...register(props.id, {
-                      required: props.validation?.required,
-                      disabled: props.validation?.disabled,
-                      value: props.validation?.value,
+                    {...register(id, {
+                      required: validation?.required,
+                      disabled: validation?.disabled,
+                      value: validation?.value,
                     })}
                   />
                 </div>
@@ -61,7 +59,7 @@ const RadioInput = (props: IField) => {
       </Fieldset>
       <ErrorMessage
         errors={errors}
-        name={props.id}
+        name={id}
         render={({ message }) => <ValidationMsg message={message} />}
       />
     </>

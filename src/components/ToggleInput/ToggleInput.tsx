@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { IField } from "../../redux/formTypes";
+import { IField } from "../../types/IField";
 import { useAppDispatch } from "../../hooks/reduxHooks";
-import { displayChildFields } from "../../redux/fieldsSlice";
+import { displayChildFields } from "../../store/fieldsSlice";
 import { useFormContext } from "react-hook-form";
 import useSetDefaultChoice from "../../hooks/useSetDefaultChoice";
 import styles from "./ToggleInput.module.scss";

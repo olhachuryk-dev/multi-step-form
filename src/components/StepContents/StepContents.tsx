@@ -1,7 +1,9 @@
 import React from "react";
 import Field from "../Field/Field";
 import ReviewAnswers from "../ReviewAnswers/ReviewAnswers";
-import { IField, IStep, RequestStatus } from "../../redux/formTypes";
+import { IField } from "../../types/IField";
+import { IStep } from "../../types/IStep";
+import RequestStatus from "../../types/requestStatus";
 import styles from "./StepContents.module.scss";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import Loading from "../../shared/Loading/Loading";

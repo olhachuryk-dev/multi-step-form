@@ -1,9 +1,9 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
-import { IStep } from "./formTypes";
+import { IStep } from "../types/IStep";
 import { RootState } from "./store";
-import { getStepsData } from "../firebase/getFormData";
-import { RequestStatus } from "./formTypes";
+import { getStepsData } from "../services/firebase/getFormData";
+import RequestStatus from "../types/requestStatus";
 const initialState: {
   data: IStep[];
   status: RequestStatus;
@@ -30,10 +30,7 @@ const stepsSlice = createSlice({
       const { stepIndex } = action.payload;
       state.data[stepIndex].completed = true;
     },
-    createStep: (
-      state,
-      action: PayloadAction<{ isFirstStep: boolean } | undefined>
-    ) => {
+    createStep: (state,  action: PayloadAction<{ isFirstStep: boolean } | undefined>) => {
       const newStep: IStep = {
         id: uuidv4(),
         order: state.data.length + 1,
