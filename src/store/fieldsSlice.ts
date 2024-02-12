@@ -42,6 +42,7 @@ const fieldsSlice = createSlice({
         type: 'text',
         review: true,
       };
+      console.log('payload', action.payload.stepId)
       state.data.push(newField);
     },
     addFieldOptions: () => {},

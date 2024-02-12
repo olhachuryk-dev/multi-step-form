@@ -27,6 +27,7 @@ const useFormConstructor = () => {
 
   function addStep() {
     dispatch(createStep());
+    setCurrentStepIndex(index => index + 1)
   }
 
   function addField(stepId: string) {
@@ -34,19 +35,8 @@ const useFormConstructor = () => {
   }
 
   function removeStep(index: number) {
+    setCurrentStepIndex(Math.max(0, currentStepIndex - 1));
     dispatch(deleteStep({ stepIndex: index }));
-  }
-
-  function finishStep() {
-    dispatch(completeStep({ stepIndex: currentStepIndex }));
-  }
-  function back() {
-    setCurrentStepIndex((step) => step - 1);
-  }
-
-  function next() {
-    finishStep();
-    setCurrentStepIndex((step) => step + 1);
   }
 
   function goTo(index: number) {
@@ -54,7 +44,6 @@ const useFormConstructor = () => {
   }
 
   function submit(data: FieldValues) {
-    finishStep();
     //TODO: transform data to IMultistepForm type;
     /*
     [
@@ -69,9 +58,6 @@ const useFormConstructor = () => {
   }
 
   return {
-    finishStep,
-    back,
-    next,
     goTo,
     addStep,
     removeStep,

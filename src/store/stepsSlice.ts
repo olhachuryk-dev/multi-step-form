@@ -30,7 +30,10 @@ const stepsSlice = createSlice({
       const { stepIndex } = action.payload;
       state.data[stepIndex].completed = true;
     },
-    createStep: (state,  action: PayloadAction<{ isFirstStep: boolean } | undefined>) => {
+    createStep: (
+      state,
+      action: PayloadAction<{ isFirstStep: boolean } | undefined>
+    ) => {
       const newStep: IStep = {
         id: uuidv4(),
         order: state.data.length + 1,
@@ -40,13 +43,21 @@ const stepsSlice = createSlice({
         title: "",
       };
       if (action.payload?.isFirstStep === true)
-        //for entirely empty form construction
+        // For entirely empty form construction
         state.data = [{ ...newStep, order: 1 }];
       else state.data.push(newStep);
     },
     deleteStep: (state, action: PayloadAction<{ stepIndex: number }>) => {
       const { stepIndex } = action.payload;
+      // Remove the step at stepIndex
       state.data.splice(stepIndex, 1);
+
+      // Adjust order key values for the remaining steps
+      state.data.forEach((step, index) => {
+        if (index >= stepIndex) {
+          step.order = step.order - 1;
+        }
+      });
     },
   },
   extraReducers: (builder) => {

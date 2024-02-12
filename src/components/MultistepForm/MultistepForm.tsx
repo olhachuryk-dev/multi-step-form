@@ -13,6 +13,7 @@ import StepContents from "../StepContents/StepContents";
 import Card from "../../shared/Card/Card";
 import Button from "../../shared/Button/Button";
 import ButtonsGroup from "../../shared/ButtonsGroup/ButtonsGroup";
+import preventFormSubmitByEnter from "../../utils/preventFormSubmitByEnter";
 
 type Props = {
   formId: string;
@@ -36,7 +37,6 @@ const MultistepForm: React.FC<Props> = ({ formId, userId }) => {
   useResetAnswers(answers, methods.reset);
 
   const lastStepIndex = steps.length - 1;
-
   const onSubmit: SubmitHandler<IAnswer> = (data) => {
     if (currentStepIndex < lastStepIndex) {
       next();
@@ -46,7 +46,10 @@ const MultistepForm: React.FC<Props> = ({ formId, userId }) => {
   };
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
+      <form
+        onSubmit={methods.handleSubmit(onSubmit)}
+        onKeyDown={preventFormSubmitByEnter}
+      >
         <StepsTracker
           isValid={isValid}
           steps={steps}
