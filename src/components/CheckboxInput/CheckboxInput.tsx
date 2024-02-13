@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { IField } from "../../types/IField";
 import { useFormContext } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -15,11 +15,9 @@ const CheckboxInput: React.FC<IField> = ({
   const {
     register,
     formState: { errors },
-    getValues,
+    watch
   } = useFormContext();
-  const [checkedInputs, setCheckedInputs] = useState<string[]>(
-    getValues(id) || [""]
-  );
+  const checkedInputs = watch(id) || [""]
   return (
     <>
       <Fieldset legend={label} id={id}>
@@ -40,13 +38,6 @@ const CheckboxInput: React.FC<IField> = ({
                     type="checkbox"
                     id={option.id}
                     value={option.label}
-                    onClick={() =>
-                      setCheckedInputs((arr) =>
-                        arr.includes(option.label)
-                          ? arr.filter((el) => el !== option.label)
-                          : [...arr, option.label]
-                      )
-                    }
                     {...register(id, {
                       required: validation?.required,
                       disabled: validation?.disabled,

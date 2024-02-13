@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
-  FieldValues,
   FormProvider,
   SubmitHandler,
-  UseFormReset,
   useForm,
 } from "react-hook-form";
 import StepsTracker from "../StepsTracker/StepsTracker";
@@ -32,9 +30,9 @@ const MultistepForm: React.FC<Props> = ({ formId, userId }) => {
     goTo,
     submit,
   } = useMultistepForm(formId, userId);
-  const methods = useForm();
-
-  useResetAnswers(answers, methods.reset);
+  const methods = useForm({
+    values: answers
+  });
 
   const lastStepIndex = steps.length - 1;
   const onSubmit: SubmitHandler<IAnswer> = (data) => {
@@ -91,13 +89,3 @@ const MultistepForm: React.FC<Props> = ({ formId, userId }) => {
 };
 
 export default MultistepForm;
-
-function useResetAnswers(answers: IAnswer, reset: UseFormReset<FieldValues>) {
-  useEffect(() => {
-    if (Object.keys(answers).length === 0 && answers.constructor === Object)
-      //do nothing if "answers" are empty.
-      return;
-    //else set form answers entered earlier;
-    reset(answers);
-  }, [answers, reset]);
-}

@@ -11,13 +11,10 @@ const RadioInput: React.FC<IField> = ({ id, label, options, validation }) => {
   const {
     register,
     formState: { errors },
-    getValues,
+    watch,
   } = useFormContext();
   useSetDefaultChoice(id, options?.[0].label || "");
 
-  const [checkedInput, setCheckedInput] = useState<string>(
-    getValues(id) || options?.[0].label
-  );
   return (
     <>
       <Fieldset legend={label} id={id}>
@@ -27,7 +24,7 @@ const RadioInput: React.FC<IField> = ({ id, label, options, validation }) => {
               <div
                 key={option.label}
                 className={`${styles.radio_option} ${
-                  checkedInput === option.label ? styles.input_checked : ""
+                  watch(id) === option.label ? styles.input_checked : ""
                 }`}
               >
                 {option.icon ? (
@@ -44,7 +41,6 @@ const RadioInput: React.FC<IField> = ({ id, label, options, validation }) => {
                     type="radio"
                     id={option.label}
                     value={option.label}
-                    onClick={() => setCheckedInput(option.label)}
                     {...register(id, {
                       required: validation?.required,
                       disabled: validation?.disabled,

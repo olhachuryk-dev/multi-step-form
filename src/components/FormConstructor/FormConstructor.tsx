@@ -14,6 +14,8 @@ import StepsTracker from "../StepsTracker/StepsTracker";
 import iconTrashcan from "../../assets/Trash.svg";
 import styles from "./FormConstructor.module.scss";
 import preventFormSubmitByEnter from "../../utils/preventFormSubmitByEnter";
+import { IStep } from "../../types/IStep";
+import { IField } from "../../types/IField";
 
 const FormConstructor = () => {
   const {
@@ -23,27 +25,20 @@ const FormConstructor = () => {
     removeStep,
     currentStepIndex,
     goTo,
-    steps,
-    stepFields,
+    methods
   } = useFormConstructor();
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    submit(data);
-  };
-  const methods = useForm({});
-  const step = steps[currentStepIndex];
-  stepFields.forEach((field) => {
-    console.log(field);
-  });
-
+  const step: IStep = methods.watch(`steps.${currentStepIndex}`);
+const fields = methods.watch(`fields`);
+console.log(step, fields)
   return (
     <FormProvider {...methods}>
       <form
-        onSubmit={methods.handleSubmit(onSubmit)}
+        onSubmit={methods.handleSubmit(submit)}
         onKeyDown={preventFormSubmitByEnter}
       >
         <StepsTracker
           isValid={true}
-          steps={steps}
+          steps={methods.watch('steps')}
           currentStepIndex={currentStepIndex}
           goTo={goTo}
           addStep={addStep}
@@ -56,36 +51,37 @@ const FormConstructor = () => {
                 <button
                   className={styles.delete_btn}
                   type="button"
-                  onClick={() => removeStep(currentStepIndex)}
-                  disabled={steps.length <= 1}
+                  onClick={() => removeStep()}
+                  disabled={methods.watch('steps')?.length <= 1}
                 >
                   <img src={iconTrashcan} alt="delete" />
                 </button>
               </div>
               <StepInput
-                id={`${step.id}.title`}
+                id={`step.${currentStepIndex}.title`}
                 label="Step title"
                 required={true}
                 placeholder="e.g. Contact Info"
               />
               <StepInput
-                id={`${step.id}.name`}
+                id={`step.${currentStepIndex}.name`}
                 label="Step name"
                 required={false}
                 placeholder="e.g. Contacts"
               />
               <StepInput
-                id={`${step.id}.description`}
+                id={`step.${currentStepIndex}.description`}
                 label="Step description"
                 required={false}
                 multiline={true}
                 placeholder="e.g. Please provide your name, email address, and phone number."
               />
-              {stepFields.map((field) => (
+              {fields?.map((field: IField, i: number) => (
+                field.stepId === step.id &&
                 <FieldSelector
                   key={field.id}
                   step={step}
-                  fieldId={`${step.id}.fields.${field.id}`}
+                  fieldId={`fields.${i}`}
                 />
               ))}
               <Button

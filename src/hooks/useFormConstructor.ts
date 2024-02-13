@@ -1,42 +1,56 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "./reduxHooks";
-import {
-  completeStep,
-  createStep,
-  deleteStep,
-  selectAllSteps,
-} from "../store/stepsSlice";
-import { FieldValues } from "react-hook-form";
-import {
-  addNewField,
-  selectAllFields,
-  selectStepFields,
-} from "../store/fieldsSlice";
-
+import { FieldValues, useForm } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 const useFormConstructor = () => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const dispatch = useAppDispatch();
-  const steps = useAppSelector(selectAllSteps);
-  const fields = useAppSelector(selectAllFields);
-  const stepFields = useAppSelector(
-    selectStepFields(steps[currentStepIndex]?.id)
-  );
-  useEffect(() => {
-    dispatch(createStep({ isFirstStep: true }));
-  }, []);
+  const methods = useForm({});
+
+  useEffect(()=>{
+    const newStepId = `steps.0`;
+    methods.register(newStepId);
+    methods.setValue(newStepId, {
+      completed: false,
+      id: uuidv4(),
+      order: 1,
+    });
+    console.log('effect')
+    console.log(methods.getValues('steps'))
+  }, [])
 
   function addStep() {
-    dispatch(createStep());
-    setCurrentStepIndex(index => index + 1)
+    const stepsAmount = methods.getValues("steps")?.length || 0;
+    const newStepId = `steps.${stepsAmount}`;
+    methods.register(newStepId);
+    methods.setValue(newStepId, {
+      completed: false,
+      id: uuidv4(),
+      order: stepsAmount+1,
+    });
+    setCurrentStepIndex(stepsAmount)
   }
 
   function addField(stepId: string) {
-    dispatch(addNewField({ stepId }));
+    const newStepId = `fields.${methods.getValues("fields")?.length || 0}`;
+    methods.register(newStepId);
+    methods.setValue(newStepId, {
+      hasChildFields: false,
+      id: uuidv4(),
+      review: false,
+      stepId: stepId,
+      type: "text",
+      validation: {
+        required: false
+      }
+    });
   }
 
-  function removeStep(index: number) {
-    setCurrentStepIndex(Math.max(0, currentStepIndex - 1));
-    dispatch(deleteStep({ stepIndex: index }));
+  function removeStep() {
+    methods.unregister(`steps.${currentStepIndex}`)
+    setCurrentStepIndex(index => index-1 > -1 ? index-1 : 0)
+  }
+
+  function removeField(fieldIndex: number) {
+    methods.unregister(`fields.${fieldIndex}`)
   }
 
   function goTo(index: number) {
@@ -60,13 +74,12 @@ const useFormConstructor = () => {
   return {
     goTo,
     addStep,
-    removeStep,
     addField,
+    removeStep,
+    removeField,
     submit,
-    steps,
-    fields,
     currentStepIndex,
-    stepFields,
+    methods
   };
 };
 

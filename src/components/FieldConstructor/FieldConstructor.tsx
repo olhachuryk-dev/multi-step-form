@@ -1,20 +1,39 @@
 import React from "react";
 import { IField } from "../../types/IField";
 import CheckboxInput from "../CheckboxInput/CheckboxInput";
-import RadioInput from "../RadioInput/RadioInput";
-import ToggleInput from "../ToggleInput/ToggleInput";
+import StepInput from "../StepInput/StepInput";
+import OptionsConstructor from "../OptionsConstructor/OptionsConstructor";
+
+const fieldsWithOptions = ["checkbox", "radio", "toggle"];
 
 const FieldConstructor: React.FC<IField> = (props) => {
-  switch (props.type) {
-    case "checkbox":
-      return <CheckboxInput {...props} key={props.id} />;
-    case "radio":
-      return <RadioInput {...props} key={props.id} />;
-    case "toggle":
-      return <ToggleInput {...props} key={props.id} />;
-    default:
-      return null;
-  }
+  const renderFieldTypeInputs = () => {
+    if ([fieldsWithOptions].includes([props.type])) {
+      // return <OptionsConstructor {...props} key={props.id} />;
+    }
+  };
+
+  return (
+    <>
+      <StepInput
+        id={`${props.id}.label`}
+        label="Field label"
+        required={true}
+        multiline={false}
+        placeholder="e.g. Email address"
+      />
+      <CheckboxInput
+        id={`${props.id}.validation.required`}
+        stepId={props.stepId}
+        hasChildFields={false}
+        label="Required"
+        type={"checkbox"}
+        review={false}
+        options={[{ id: `${props.id}.required`, label: "Required" }]}
+      />
+      {renderFieldTypeInputs()}
+    </>
+  );
 };
 
 export default FieldConstructor;

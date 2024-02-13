@@ -7,7 +7,7 @@ import Button from "../../shared/Button/Button";
 
 type Props = {
   isValid: boolean;
-  steps: IStep[];
+  steps?: IStep[];
   currentStepIndex: number;
   goTo: (index: number) => void;
   addStep?: () => void;
@@ -22,7 +22,7 @@ const StepsTracker: React.FC<Props> = ({
 }) => {
   const { formState, trigger } = useFormContext();
   const enabledStepLastIndex = useMemo(
-    () => steps.findIndex((step: IStep) => step.completed === false),
+    () => steps?.findIndex((step: IStep) => step.completed === false),
     [steps]
   );
 
@@ -30,7 +30,7 @@ const StepsTracker: React.FC<Props> = ({
     trigger();
     if (
       !addStep
-        ? (gotoIndex ?? 0) > enabledStepLastIndex || !formState.isValid
+        ? (gotoIndex ?? 0) > (enabledStepLastIndex ?? 0) || !formState.isValid
         : !formState.isValid
     ) {
       return;
@@ -46,7 +46,7 @@ const StepsTracker: React.FC<Props> = ({
     <Panel>
       {isValid ? (
         <>
-          {steps.map((step, index) => (
+          {steps?.map((step, index) => (
             <div key={step.id} className={styles.tracker_wrapper}>
               <button
                 type="button"

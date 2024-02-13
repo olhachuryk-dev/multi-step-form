@@ -3,13 +3,10 @@ import { IStep } from "../../types/IStep";
 import { useFormContext } from "react-hook-form";
 import Fieldset from "../../shared/Fieldset/Fieldset";
 import FieldConstructor from "../FieldConstructor/FieldConstructor";
-import StepInput from "../StepInput/StepInput";
 import Spacer from "../../shared/Spacer/Spacer";
-import CheckboxInput from "../CheckboxInput/CheckboxInput";
 import styles from "./FieldSelector.module.scss";
 import {
   FIELD_TYPES_LIST,
-  IFieldType,
 } from "../../utils/fieldTypeConstructorData";
 
 type Props = {
@@ -18,11 +15,13 @@ type Props = {
 };
 
 const FieldSelector: React.FC<Props> = ({ step, fieldId }) => {
+  const selectorId = `${fieldId}.type`;
   const {
     register,
     formState: { errors },
+    watch,
   } = useFormContext();
-  const [checkedInput, setCheckedInput] = useState<IFieldType>();
+  const checkedInputType =  watch(selectorId);
   return (
     <>
       <Fieldset
@@ -30,7 +29,7 @@ const FieldSelector: React.FC<Props> = ({ step, fieldId }) => {
         className={styles.grid}
         showLegend={true}
         errors={errors}
-        id={`${fieldId}.type`}
+        id={selectorId}
       >
         <>
           {FIELD_TYPES_LIST?.map((option) => {
@@ -38,7 +37,7 @@ const FieldSelector: React.FC<Props> = ({ step, fieldId }) => {
               <div
                 key={`${fieldId}.${option.type}`}
                 className={`${styles.option}  ${
-                  checkedInput?.type === option.type && styles.option_checked
+                  checkedInputType === option.type && styles.option_checked
                 }`}
               >
                 <img src={option.src} alt={option.type} />
@@ -46,8 +45,7 @@ const FieldSelector: React.FC<Props> = ({ step, fieldId }) => {
                   <input
                     type="radio"
                     value={option.type}
-                    onClick={() => setCheckedInput(option)}
-                    {...register(`${fieldId}.type`, {
+                    {...register(selectorId, {
                       required: "Selection Required",
                     })}
                   />
@@ -58,29 +56,13 @@ const FieldSelector: React.FC<Props> = ({ step, fieldId }) => {
         </>
       </Fieldset>
       <Spacer size={15} />
-      <StepInput
-        id={`${fieldId}.label`}
-        label="Field label"
-        required={true}
-        multiline={false}
-        placeholder="e.g. Email address"
-      />
-      <CheckboxInput
-        id={`${fieldId}.validation.required`}
-        stepId={step.id}
-        hasChildFields={false}
-        label="Required"
-        type={"checkbox"}
-        review={false}
-        options={[{ id: `${fieldId}.required`, label: "Required" }]}
-      />
-      {checkedInput?.type && (
+      {checkedInputType && (
         <FieldConstructor
           id={fieldId}
           stepId={step.id}
           hasChildFields={false}
           label="Enter value"
-          type={checkedInput.type}
+          type={checkedInputType}
           review={false}
         />
       )}
