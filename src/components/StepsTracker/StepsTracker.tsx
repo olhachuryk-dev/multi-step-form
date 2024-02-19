@@ -42,6 +42,11 @@ const StepsTracker: React.FC<Props> = ({
     forceValidation(() => goTo(stepIndex), stepIndex);
   }
 
+  function addStepClickHandler() {
+    if (!addStep) return;
+    forceValidation(addStep)
+  }
+
   return (
     <Panel>
       {isValid ? (
@@ -56,9 +61,9 @@ const StepsTracker: React.FC<Props> = ({
                 }`}
                 aria-hidden="true"
               >
-                {step.order}
+                {index+1}
               </button>
-              <span>Step {step.order}</span>
+              <span>Step {index+1}</span>
               <span>{step.name}</span>
             </div>
           ))}
@@ -66,7 +71,7 @@ const StepsTracker: React.FC<Props> = ({
             <Button
               name="Add step"
               appearence="accent"
-              onClick={() => forceValidation(addStep)}
+              onClick={addStepClickHandler}
             />
           )}
         </>

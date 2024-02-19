@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { IStep } from "../../types/IStep";
 import { useFormContext } from "react-hook-form";
 import Fieldset from "../../shared/Fieldset/Fieldset";

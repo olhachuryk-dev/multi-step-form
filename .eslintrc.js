@@ -9,9 +9,6 @@ module.exports = {
     'unused-imports',
   ],
   extends: [
-    'airbnb',
-    'airbnb-typescript',
-    'airbnb/hooks',
     'plugin:react-hooks/recommended',
     'plugin:react/recommended',
     'plugin:jest/recommended',

@@ -1,21 +1,21 @@
 import React from "react";
 import styles from "./Card.module.scss";
 
-interface CardProps {
+type Props =  {
   children: JSX.Element | JSX.Element[];
   appearence: "primary" | "secondary" | "accent";
   padding?: "none" | "small" | "medium";
 }
 
-const Card = (props: CardProps) => {
+const Card: React.FC<Props> = ({children, appearence, padding='small'}) => {
   return (
     <div
       className={`${
-        styles[`${props.appearence}_card`]} ${
-        styles[`padding_${props.padding}`]
+        styles[`${appearence}_card`]} ${
+        styles[`padding_${padding}`]
       }`}
     >
-      {props.children}
+      {children}
     </div>
   );
 };

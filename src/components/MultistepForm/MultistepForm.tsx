@@ -54,7 +54,7 @@ const MultistepForm: React.FC<Props> = ({ formId, userId }) => {
           currentStepIndex={currentStepIndex}
           goTo={goTo}
         />
-        <Card appearence="primary">
+        <Card appearence="primary" padding="medium">
           <StepContents
             step={steps[currentStepIndex]}
             fields={stepFields}

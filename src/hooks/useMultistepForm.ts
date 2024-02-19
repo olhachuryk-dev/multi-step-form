@@ -14,9 +14,8 @@ const useMultistepForm = (formId: string, userId: string) => {
   const steps = useAppSelector(selectAllSteps);
   const answers = useAppSelector(selectAllAnswers);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const stepFields = useAppSelector(
-    selectStepFields(steps[currentStepIndex]?.id)
-  );
+  const currentStepId = steps[currentStepIndex]?.id;
+  const stepFields = useAppSelector((state) => selectStepFields(state, currentStepId));
   const isValid = useMemo(() => steps.length > 0, [steps]);
   const dispatch = useAppDispatch();
 

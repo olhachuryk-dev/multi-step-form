@@ -1,4 +1,4 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
 import { IFieldOption } from "../types/IFieldOption";
 import { IField } from "../types/IField";
 import { RootState } from "./store";
@@ -68,7 +68,7 @@ const fieldsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchFields.pending, (state, action) => {
+      .addCase(fetchFields.pending, (state) => {
         state.status = RequestStatus.LOADING;
       })
       .addCase(fetchFields.fulfilled, (state, action) => {
@@ -85,10 +85,15 @@ const fieldsSlice = createSlice({
 export const { displayChildFields, addNewField, addFieldOptions } = fieldsSlice.actions;
 
 export const selectAllFields = (state: RootState) => state.fields.data;
-export const selectStepFields = (stepId: string) => (state: RootState) => {
-  if (!Array.isArray(state.fields.data) || state.fields.data.length === 0)
-    return [] as IField[];
-  return state.fields.data.filter((field) => field.stepId === stepId);
-};
+export const selectStepFields = createSelector(
+  (state: RootState) => state.fields.data,
+  (_: RootState, stepId: string) => stepId, // Memoize based on stepId
+  (fields, stepId) => {
+    if (!Array.isArray(fields) || fields.length === 0) {
+      return [] as IField[];
+    }
+    return fields.filter((field) => field.stepId === stepId);
+  }
+);
 
 export default fieldsSlice.reducer;
